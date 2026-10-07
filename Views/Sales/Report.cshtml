@@ -1,0 +1,82 @@
+@model WebApplication2.DTOs.SalesReportDto?
+
+@{
+    ViewData["Title"] = "Sales Report";
+}
+
+<div class="container mt-4">
+
+    <h2>Sales Report</h2>
+
+    <hr />
+
+    <form asp-controller="Sales" asp-action="Report" method="post">
+
+        <div class="mb-3">
+            <label class="form-label"> Select Branch ID (1–10) </label>
+            <input type="number" name="branchId" class="form-control" placeholder="Enter Branch Id" required/>
+        </div>
+
+
+        <div class="mb-3"> 
+            <label class="form-label"> From Date </label>
+            <input type="date" name="fromDate" class="form-control" required />  
+        </div>
+
+
+        <div class="mb-3"> 
+            <label class="form-label"> To Date </label>
+            <input type="date" name="toDate" class="form-control" required />
+        </div>
+
+
+        <button type="submit" class="btn btn-outline-primary"> Search </button>
+
+    </form>
+
+
+
+    <hr />
+
+    @if (ViewBag.count == 1)
+    {
+        <div class="alert alert-warning"> @ViewBag.Message </div>
+    }
+
+
+
+    @if (Model != null)
+    {
+        <h3 class="mt-4"> Sales Result </h3>
+
+        <table class="table table-bordered">
+
+            <tr>
+                <th>Branch Id</th>
+                <td>@Model.BranchId</td>
+            </tr>
+
+            <tr>
+                <th>Total Sales</th>
+                <td> @Model.TotalSales.ToString() </td>
+            </tr>
+
+            <tr>
+                <th>Total Cost</th>
+                <td> @Model.TotalCost.ToString()</td>
+            </tr>
+
+            <tr>
+                <th>Gross Profit</th>
+                <td> @Model.GrossProfit.ToString()</td>
+            </tr>
+
+            <tr>
+                <th>GP %</th>
+                <td> @Model.GPPercentage.ToString("N2")%</td>
+            </tr>
+
+        </table>
+    }
+
+</div>
